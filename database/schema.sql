@@ -101,6 +101,10 @@ RETURNS TRIGGER AS $$
 BEGIN NEW.updated_at = NOW(); RETURN NEW; END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS trg_users_updated_at ON users;
+DROP TRIGGER IF EXISTS trg_shops_updated_at ON shops;
+DROP TRIGGER IF EXISTS trg_ipo_updated_at   ON ipo_checklist;
+
 CREATE TRIGGER trg_users_updated_at  BEFORE UPDATE ON users  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER trg_shops_updated_at  BEFORE UPDATE ON shops  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER trg_ipo_updated_at    BEFORE UPDATE ON ipo_checklist FOR EACH ROW EXECUTE FUNCTION update_updated_at();
